@@ -1,0 +1,43 @@
+.container {
+}
+#stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-sizing: content-box;
+  transition-duration: 2000ms;
+  box-shadow: 3px 3px 44px -5px rgba(0, 0, 0, 0.5);
+}
+#stage.slanted {
+  transform: matrix3d(
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    -0.0025,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -180,
+    0,
+    1.35
+  );
+}
+canvas {
+  position: absolute;
+}
+#playfieldBg {
+  z-index: 1;
+  background: #343434;
+}
+#playfield {
+  z-index: 2;
+}
+#playfieldOverlay {
+  z-index: 3;
+}
