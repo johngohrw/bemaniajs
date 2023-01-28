@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>bemaniajs</title>
+</head>
+
+<body>
+    <div class="section">
+        <h1>
+            Bemaniajs
+        </h1>
+
+        <div>
+            <div>songname: <input type="text" id="songname" /></div>
+            <div>songartist: <input type="text" id="songartist" /></div>
+            <div>notes json: <textarea id="notesJson"></textarea></div>
+            <div>mp3 url: <input type="text" id="mp3url" /></div>
+            <div>keys: <input type="number" id="keys" /></div>
+            <button onclick="loadGame()">load</button>
+        </div>
+
+        <div id="game1" class="frame">
+            <canvas class="fg"></canvas>
+            <canvas class="notes"></canvas>
+            <canvas class="bg"></canvas>
+        </div>
+
+    </div>
+
+
+</body>
+<script>
+    let note, controller;
+    async function load() {
+        controller = await import("./game/controller.js")
+        note = await import("./game/note.js")
+    }
+    load()
+</script>
+
+<script>
+
+    songname.value = "@__@"
+    songartist.value = "Chroma"
+    keys.value = 7
+
+    const fgCanvas = document.getElementById("game1").getElementsByClassName("fg")[0]
+    const notesCanvas = document.getElementById("game1").getElementsByClassName("notes")[0]
+    const bgCanvas = document.getElementById("game1").getElementsByClassName("bg")[0]
+
+    async function loadGame() {
+
+
+        console.log("controller", controller)
+        const { convertNotesFromOsz } = note
+        const { GameController } = controller
+
+        console.log(">", notesJson.value)
+        const song = {
+            name: songname.value,
+            artist: songartist.value,
+            notes: convertNotesFromOsz(JSON.parse(notesJson.value).notes),
+            url: mp3url.value,
+            keys: keys.value,
+        }
+
+        const game = new GameController({
+            fgCanvas: fgCanvas,
+            bgCanvas: bgCanvas,
+            gameCanvas: notesCanvas,
+            songInfo: songInfo,
+            skin: skin,
+            initialOptions: { gameVolume: volume, scrollSpeed },
+            gameScale: gameScale,
+        });
+    }
+
+
+</script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: black;
+    }
+
+    body {
+        background: #c7c7c7;
+        padding: 0.5rem 1rem;
+    }
+
+    .frame {
+        width: 500px;
+        height: 500px;
+        background: black;
+    }
+
+    .section {}
+</style>
+
+</html>
