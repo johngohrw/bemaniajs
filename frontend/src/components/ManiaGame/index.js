@@ -12,6 +12,7 @@ export function ManiaGame({
   paused,
   height = 60,
   gameScale = 1,
+  initialOptions,
   ...rest
 }) {
   const gameBgRef = useRef(null);
@@ -32,10 +33,7 @@ export function ManiaGame({
         gameCanvas: gameRef.current,
         songInfo: songInfo,
         skin: skin,
-        initialOptions: {
-          gameVolume: volume,
-          scrollSpeed: scrollSpeed,
-        },
+        initialOptions: initialOptions,
         gameScale: gameScale,
       });
       setGame(g);
@@ -61,7 +59,7 @@ export function ManiaGame({
   }, [game, paused]);
 
   useEffect(() => {
-    game?.audioClass?.setAudioAttribute("volume", volume);
+    game?.audioController?.setAudioAttribute("volume", volume);
   }, [game, volume]);
 
   return (

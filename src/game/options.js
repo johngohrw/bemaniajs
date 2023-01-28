@@ -71,7 +71,7 @@ const defaultOptions = {
       8: "l",
     },
   },
-  gameVolume: 0.5,
-  scrollSpeed: 10,
+  gameVolume: 0.2,
+  scrollSpeed: 5,
   offset: 0,
 };

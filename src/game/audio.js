@@ -1,10 +1,6 @@
-export class AudioProvider {
-  constructor({ url, onCanPlayFunction }) {
+export class AudioController {
+  constructor(url) {
     this.instance = url ? new Audio(url) : null;
-
-    if (onCanPlayFunction) {
-      this.instance.addEventListener("canplay", onCanPlayFunction);
-    }
   }
 
   getNode() {
@@ -13,5 +9,11 @@ export class AudioProvider {
 
   setAudioAttribute(key, value) {
     this.instance[key] = value;
+  }
+
+  destroy() {
+    this.instance.setAttribute("src", null);
+    this.instance.load();
+    this.instance.play();
   }
 }

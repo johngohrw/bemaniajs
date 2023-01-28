@@ -1,3 +1,4 @@
+import { AudioController } from "./audio";
 import { FeedbackRenderer } from "./feedback";
 import { NoteFactory } from "./note";
 import { OptionsProvider } from "./options";
@@ -29,7 +30,8 @@ export class GameController {
       parseInt(val)
     );
 
-    this.audio = new Audio(songInfo.url);
+    this.audioController = new AudioController(songInfo.url);
+    this.audio = this.audioController.getNode();
     this.audio.volume = this.options.gameVolume;
     this.isPlaying = !this.audio.paused;
 
@@ -81,7 +83,7 @@ export class GameController {
     console.log("[GameController] unmounting game");
     document.removeEventListener("keydown", this.onKeyDown);
     document.removeEventListener("keyup", this.onKeyUp);
-    this?.audio?.pause();
+    this.audioController.destroy();
   }
 
   onKeyDown(e) {
