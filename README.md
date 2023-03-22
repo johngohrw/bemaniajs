@@ -1,5 +1,7 @@
 # bemaniajs
 
+Note: This is still in its very early stages of development. Many core features are still not developed.
+
 A HTML canvas-based rhythm game for the web
 
 ## Setup
